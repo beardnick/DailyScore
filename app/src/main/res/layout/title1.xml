@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:textSize="24dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/ivory"
+        android:gravity="center_vertical"
+        android:text="@string/app_name"/>
+
+    <ImageButton
+        android:id="@+id/add"
+        android:layout_width="0dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_blue_grey_200_24dp"
+        android:layout_weight="1"/>
+
+    <ImageButton
+        android:id="@+id/remove"
+        android:layout_width="0dp"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_remove_blue_grey_200_24dp"
+        android:layout_weight="1"/>
+
+</LinearLayout>

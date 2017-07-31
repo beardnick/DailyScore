@@ -1,11 +1,20 @@
 package com.example.asus.dailyscore;
 
+import android.app.Activity;
+import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.asus.dailyscore.DataClass.MyPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +26,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager mainPager;
     private List<View> list;
     private MyPagerAdapter viewPager;
+    private LocalActivityManager manager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mainlayout);
-        hobby=View.inflate(MainActivity.this,R.layout.hobbylayout,null);
-        plant=View.inflate(MainActivity.this,R.layout.plantlayout,null);
-        score=View.inflate(MainActivity.this,R.layout.scorelayout,null);
+        manager = new LocalActivityManager(this, true);
+        manager.dispatchCreate(savedInstanceState);
+        initView();
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        toolbar.
+//        toolbar.setOnClickListener(this);
+    }
+
+    public void initView(){
+        Intent hobbyIntent=new Intent(MainActivity.this,HobbyActivity.class);
+        Intent scoreIntent=new Intent(MainActivity.this,ScoreActivity.class);
+        Intent plantIntent=new Intent(MainActivity.this,PlantActivity.class);
+        hobby = manager.startActivity(findViewById(R.id.hobby).toString(),hobbyIntent).getDecorView();
+        score = manager.startActivity(findViewById(R.id.score).toString(),scoreIntent).getDecorView();
+        plant = manager.startActivity(findViewById(R.id.plant).toString(),plantIntent).getDecorView();
         list=new ArrayList<View>();
         list.add(hobby);
         list.add(score);
@@ -44,36 +67,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.hobby:
                 mainPager.setCurrentItem(0);
-                hobby.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this,HobbyActivity.class);
-                        startActivity(intent);
-                    }
-                });
                 break;
             case R.id.score:
                 mainPager.setCurrentItem(1);
-                score.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this,ScoreActivity.class);
-                        startActivity(intent);
-                    }
-                });
                 break;
             case R.id.plant:
                 mainPager.setCurrentItem(2);
-                plant.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent=new Intent(MainActivity.this,PlantActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                break;
+            case R.id.add:
+                Intent intent=new Intent(this,AddHobby.class);
+                startActivity(intent);
+                break;
+            case R.id.remove:
+                Toast.makeText(this,"你删除了一个习惯",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
         }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_remove,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_add:
+                Intent intent=new Intent(MainActivity.this,AddHobby.class);
+                startActivity(intent);
+                break;
+            case R.id.action_remove:
+                Toast.makeText(MainActivity.this,"你删除了一个习惯",Toast.LENGTH_LONG).show();
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 }

@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#46a3ff</color>
     <color name="colorBlue">#46a3ff</color>
+    <color name="ivory">#FFFFF0</color><!--象牙色 -->
 </resources>

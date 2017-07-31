@@ -12,22 +12,31 @@ public class Hobby {
     private Date beginDate;
     private Date date;
     private int score;
-    private int counter;
+    private boolean finish;
+
+    public Hobby(String name,int perScore){
+        this.perScore = perScore;
+        this.name = name;
+        this.date = new Date(System.currentTimeMillis());
+        this.score = 0;
+        this.finish=false;
+    }
+
     public Hobby(String name,int perScore,Date beginDate){
         this.beginDate = beginDate;
         this.perScore = perScore;
         this.name = name;
         this.date = new Date(System.currentTimeMillis());
         this.score = 0;
-        this.counter=0;
+        this.finish=false;
     }
 
-    public int getCounter() {
-        return counter;
+    public boolean getFinish() {
+        return finish;
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
+    public void setFinish(int counter) {
+        finish=(!finish);
     }
 
     public String getName(){
@@ -61,7 +70,7 @@ public class Hobby {
         this.perScore = perScore;
     }
     public void calculateScore(){
-        this.score=perScore*counter;
+        if(finish)score=score+perScore;
     }
 }
 

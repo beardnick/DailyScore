@@ -19,6 +19,8 @@
         <activity android:name=".HobbyActivity"></activity>
         <activity android:name=".ScoreActivity"></activity>
         <activity android:name=".PlantActivity"></activity>
+        <activity android:name=".AddHobby"></activity>
+        <activity android:name=".DataClass.HobbyStore"></activity>
     </application>
 
 </manifest>

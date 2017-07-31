@@ -7,7 +7,6 @@
         android:id="@+id/hobby_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/colorBlue"
         android:dividerHeight="5dp" />
 
 </LinearLayout>
