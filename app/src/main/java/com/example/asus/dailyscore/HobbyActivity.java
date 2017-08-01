@@ -24,6 +24,7 @@ public class HobbyActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.hobbylayout);
 
+
         try {
             if(getHobbyList()){
                 ArrayAdapter<String> listAdapter=new ArrayAdapter<String>(

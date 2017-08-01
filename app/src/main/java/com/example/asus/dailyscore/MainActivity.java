@@ -27,17 +27,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<View> list;
     private MyPagerAdapter viewPager;
     private LocalActivityManager manager;
+//    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.mainlayout);
         manager = new LocalActivityManager(this, true);
         manager.dispatchCreate(savedInstanceState);
+//        toolbar = (Toolbar)findViewById(R.id.app_bar);
+//        setSupportActionBar(toolbar);
         initView();
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.
-//        toolbar.setOnClickListener(this);
     }
 
     public void initView(){
