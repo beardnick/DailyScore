@@ -12,15 +12,12 @@ import static android.content.Context.MODE_PRIVATE;
  * Created by asus on 2017/7/30.
  */
 
-public class HobbyStore extends Activity {
+public class HobbyStore{
     public HobbyStore() {
     }
 
-    public  void addHobby(Hobby hobby){
+    public  void addHobby(Hobby hobby,SharedPreferences.Editor editor,SharedPreferences preferences){
         String todayDate=(new Date(System.currentTimeMillis())).toString();
-        SharedPreferences.Editor editor=getSharedPreferences("data",
-                MODE_PRIVATE).edit();
-        SharedPreferences preferences=getSharedPreferences("data", MODE_PRIVATE);
         editor.putString(hobby.getName()+"beginDate",todayDate);
         editor.putInt(hobby.getName()+"perScore",hobby.getPerScore());
         editor.putInt(hobby.getName()+todayDate+"score",0);
@@ -42,11 +39,8 @@ public class HobbyStore extends Activity {
         total=preferences.getInt("totalHobby",0);
     }
 
-    public void storeHobby(Hobby hobby){
+    public void storeHobby(Hobby hobby,SharedPreferences.Editor editor,SharedPreferences preferences){
         String todayDate=(new Date(System.currentTimeMillis())).toString();
-        SharedPreferences.Editor editor=getSharedPreferences("data",
-                MODE_PRIVATE).edit();
-        SharedPreferences preferences=getSharedPreferences("data",MODE_PRIVATE);
         editor.putInt(hobby.getName()+todayDate+"score",hobby.getScore());
         editor.putInt(hobby.getName()+"totalScore",preferences.getInt("totalScore",0)+hobby.getScore());
         editor.commit();

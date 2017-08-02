@@ -23,17 +23,15 @@ public class HobbyActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.hobbylayout);
+        getListView();
+    }
 
-
-        try {
-            if(getHobbyList()){
-                ArrayAdapter<String> listAdapter=new ArrayAdapter<String>(
-                        HobbyActivity.this,android.R.layout.simple_list_item_1,testHobby);
-                ListView listView=(ListView)findViewById(R.id.hobby_list);
-                listView.setAdapter(listAdapter);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public  void getListView(){
+        if(getHobbyList()) {
+            ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(
+                    HobbyActivity.this, android.R.layout.simple_list_item_1, testHobby);
+            ListView listView = (ListView) findViewById(R.id.hobby_list);
+            listView.setAdapter(listAdapter);
         }
     }
 

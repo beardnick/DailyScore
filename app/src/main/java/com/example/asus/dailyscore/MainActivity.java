@@ -2,18 +2,25 @@ package com.example.asus.dailyscore;
 
 import android.app.Activity;
 import android.app.LocalActivityManager;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.asus.dailyscore.DataClass.Hobby;
+import com.example.asus.dailyscore.DataClass.HobbyStore;
 import com.example.asus.dailyscore.DataClass.MyPagerAdapter;
 
 import java.util.ArrayList;
@@ -38,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        setSupportActionBar(toolbar);
         initView();
     }
-
     public void initView(){
         Intent hobbyIntent=new Intent(MainActivity.this,HobbyActivity.class);
         Intent scoreIntent=new Intent(MainActivity.this,ScoreActivity.class);
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         plant.setOnClickListener(this);
         mainPager.setCurrentItem(0);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -72,13 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.plant:
                 mainPager.setCurrentItem(2);
-                break;
-            case R.id.add:
-                Intent intent=new Intent(this,AddHobby.class);
-                startActivity(intent);
-                break;
-            case R.id.remove:
-                Toast.makeText(this,"你删除了一个习惯",Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;
@@ -96,8 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.action_add:
-                Intent intent=new Intent(MainActivity.this,AddHobby.class);
-                startActivity(intent);
+                addHobbyDialog();
                 break;
             case R.id.action_remove:
                 Toast.makeText(MainActivity.this,"你删除了一个习惯",Toast.LENGTH_LONG).show();
@@ -106,5 +105,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         return true;
+    }
+
+    private void addHobbyDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("新增习惯");
+        View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.add_hobby_layout,null);
+        builder.setView(view);
+        final EditText hobbyName=(EditText)view.findViewById(R.id.new_edit_hobby_name);
+        final EditText hobbyScore=(EditText)view.findViewById(R.id.new_set_hobby_score);
+        final SharedPreferences.Editor editor=getSharedPreferences("data",
+                MODE_PRIVATE).edit();
+        final SharedPreferences preferences=getSharedPreferences("data",MODE_PRIVATE);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which){
+                Hobby newHobby = new Hobby(
+                        hobbyName.getText().toString(),Integer.parseInt(hobbyScore.getText().toString()));
+                HobbyStore hobbyStore = new HobbyStore();
+                hobbyStore.addHobby(newHobby,editor,preferences);
+                Toast.makeText(MainActivity.this,"成功创建习惯",Toast.LENGTH_LONG).show();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 }
