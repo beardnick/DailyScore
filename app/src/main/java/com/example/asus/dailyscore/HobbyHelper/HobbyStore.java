@@ -1,12 +1,8 @@
-package com.example.asus.dailyscore.DataClass;
+package com.example.asus.dailyscore.HobbyHelper;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 
 import java.util.Date;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by asus on 2017/7/30.
@@ -15,6 +11,22 @@ import static android.content.Context.MODE_PRIVATE;
 public class HobbyStore{
     public HobbyStore() {
     }
+
+    public int getPerScore(String hobbyName, SharedPreferences preferences){
+        if(preferences.getInt(hobbyName+"perScore",0) == preferences.getInt("???",0))
+            return 0;
+        else
+        return preferences.getInt(hobbyName+"perScore",0);
+    }
+
+    public int getTotallHobby(SharedPreferences preferences){
+        return preferences.getInt("totalHobby",0);
+    }
+
+    public String getBeginDate(String hobbyName,SharedPreferences preferences){
+        return preferences.getString(hobbyName+"beginDate","");
+    }
+
 
     public  void addHobby(Hobby hobby,SharedPreferences.Editor editor,SharedPreferences preferences){
         String todayDate=(new Date(System.currentTimeMillis())).toString();

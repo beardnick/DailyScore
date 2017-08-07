@@ -1,4 +1,4 @@
-package com.example.asus.dailyscore.DataClass;
+package com.example.asus.dailyscore.HobbyHelper;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;

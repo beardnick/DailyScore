@@ -1,27 +1,26 @@
 package com.example.asus.dailyscore;
 
-import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.LocalActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.asus.dailyscore.DataClass.Hobby;
-import com.example.asus.dailyscore.DataClass.HobbyStore;
-import com.example.asus.dailyscore.DataClass.MyPagerAdapter;
+import com.example.asus.dailyscore.HobbyHelper.Hobby;
+import com.example.asus.dailyscore.HobbyHelper.HobbyStore;
+import com.example.asus.dailyscore.HobbyHelper.MyPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.mainlayout);
         manager = new LocalActivityManager(this, true);
         manager.dispatchCreate(savedInstanceState);
-//        toolbar = (Toolbar)findViewById(R.id.app_bar);
-//        setSupportActionBar(toolbar);
         initView();
     }
     public void initView(){
@@ -120,17 +117,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which){
-                Hobby newHobby = new Hobby(
-                        hobbyName.getText().toString(),Integer.parseInt(hobbyScore.getText().toString()));
-                HobbyStore hobbyStore = new HobbyStore();
-                hobbyStore.addHobby(newHobby,editor,preferences);
-                Toast.makeText(MainActivity.this,"成功创建习惯",Toast.LENGTH_LONG).show();
+                if(hobbyName.getText().length() == 0){
+                    Toast.makeText(MainActivity.this,"习惯名称不能为空",Toast.LENGTH_SHORT).show();
+                }
+                else if(hobbyScore.getText().length() == 0){
+                    Toast.makeText(MainActivity.this,"习惯分数不能为空",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Hobby newHobby = new Hobby(
+                            hobbyName.getText().toString(),Integer.parseInt(hobbyScore.getText().toString()));
+                    HobbyStore hobbyStore = new HobbyStore();
+                    hobbyStore.addHobby(newHobby,editor,preferences);
+                    Toast.makeText(MainActivity.this,"成功创建习惯",Toast.LENGTH_LONG).show();
+                }
+//                try {
+//            Intent intent=new
+//                    Intent("com.example.asus.dailyscore.HOBBY_CHANGE");
+//            sendBroadcast(intent);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         builder.show();

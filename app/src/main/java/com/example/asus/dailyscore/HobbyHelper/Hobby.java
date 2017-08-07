@@ -1,4 +1,4 @@
-package com.example.asus.dailyscore.DataClass;
+package com.example.asus.dailyscore.HobbyHelper;
 
 import java.util.Date;
 
