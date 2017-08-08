@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<View> list;
     private MyPagerAdapter viewPager;
     private LocalActivityManager manager;
-//    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         manager.dispatchCreate(savedInstanceState);
         initView();
     }
+
     public void initView(){
         Intent hobbyIntent=new Intent(MainActivity.this,HobbyActivity.class);
         Intent scoreIntent=new Intent(MainActivity.this,ScoreActivity.class);
@@ -126,17 +127,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 else{
                     Hobby newHobby = new Hobby(
                             hobbyName.getText().toString(),Integer.parseInt(hobbyScore.getText().toString()));
-                    HobbyStore hobbyStore = new HobbyStore();
-                    hobbyStore.addHobby(newHobby,editor,preferences);
+                    HobbyStore hobbyStore = new HobbyStore(preferences,editor);
+                    hobbyStore.addHobby(newHobby);
                     Toast.makeText(MainActivity.this,"成功创建习惯",Toast.LENGTH_LONG).show();
                 }
-//                try {
-//            Intent intent=new
-//                    Intent("com.example.asus.dailyscore.HOBBY_CHANGE");
-//            sendBroadcast(intent);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -146,4 +140,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         builder.show();
     }
+
 }

@@ -35,7 +35,7 @@ public class Hobby {
         return finish;
     }
 
-    public void setFinish(int counter) {
+    public void setFinish() {
         finish=(!finish);
     }
 
