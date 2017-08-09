@@ -94,8 +94,10 @@ public class HobbyStore {
         editor.commit();
         if(preferences.getInt("totalHobby",0)>0){
             int position = totalHobby;
+            String temp;
             for(int i = 0;i < totalHobby; i++){
-                if(hobbyName.equals(preferences.getString("hobby"+Integer.valueOf(i).toString(),"???"))){
+                temp = preferences.getString("hobby"+Integer.valueOf(i).toString(),"???");
+                if(hobbyName.equals(temp)){
                     position = i;
                     break;
                 }
@@ -109,12 +111,12 @@ public class HobbyStore {
             editor.putInt("totalHobby",totalHobby);
             editor.commit();
         }
-        Date beginDate = getDateBeginDate(hobbyName);
-        Date todayDate = format.parse(this.todayDate);
-        while (beginDate != todayDate){
-            editor.remove(hobbyName+format.format(beginDate)+"score");
-            editor.remove(hobbyName+format.format(beginDate)+"finish");
-            beginDate = datePlus(beginDate);
+        String temp;
+        for ( Date beginDate = getDateBeginDate(hobbyName);;datePlus(beginDate)) {
+            temp = format.format(beginDate);
+            editor.remove(hobbyName+temp+"score");
+            editor.remove(hobbyName+temp+"finish");
+            if(todayDate.equals(temp))break;
         }
         editor.remove(hobbyName+"beginDate");
         editor.commit();

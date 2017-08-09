@@ -52,15 +52,15 @@ public class HobbyActivity extends Activity {
                     R.layout.hobby_item, hobbyList,hobbyStore);
             ListView listView = (ListView) findViewById(R.id.hobby_list);
             listView.setAdapter(listAdapter);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
-                    Hobby hobby = hobbyList.get(position);
-                    Toast.makeText(HobbyActivity.this,hobby.getName(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view,
+//                                        int position, long id) {
+//                    Hobby hobby = hobbyList.get(position);
+//                    Toast.makeText(HobbyActivity.this,hobby.getName(),
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//            });
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
