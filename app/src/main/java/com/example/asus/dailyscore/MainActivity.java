@@ -130,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     HobbyStore hobbyStore = new HobbyStore(preferences,editor);
                     hobbyStore.addHobby(newHobby);
                     Toast.makeText(MainActivity.this,"成功创建习惯",Toast.LENGTH_LONG).show();
+                    Intent intent = new
+                            Intent("com.example.asus.dailyscore.HOBBYADD");
+                    sendBroadcast(intent);
                 }
             }
         });
