@@ -7,15 +7,15 @@
         android:orderInCategory="20"
         android:id="@+id/action_add"
         app:showAsAction="always"
-        android:icon="@drawable/ic_add_blue_grey_200_24dp"
+        android:icon="@drawable/ic_add_black_24dp"
         />
 
-    <item
-        android:title="remove"
-        android:orderInCategory="30"
-        android:id="@+id/action_remove"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_remove_blue_grey_200_24dp"
-        />
+    <!--<item-->
+        <!--android:title="remove"-->
+        <!--android:orderInCategory="30"-->
+        <!--android:id="@+id/action_remove"-->
+        <!--app:showAsAction="always"-->
+        <!--android:icon="@drawable/ic_remove_blue_grey_200_24dp"-->
+        <!--/>-->
 
 </menu>

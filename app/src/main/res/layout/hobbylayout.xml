@@ -11,6 +11,6 @@
     <ListView
         android:id="@+id/hobby_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" /> <!-- 阻止子项获得焦点-->
 
 </LinearLayout>

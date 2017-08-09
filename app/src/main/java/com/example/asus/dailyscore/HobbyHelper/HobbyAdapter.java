@@ -54,7 +54,7 @@ public class HobbyAdapter extends ArrayAdapter<Hobby>{
             viewHolder = new ViewHolder();
             viewHolder.hobbyImage = (ImageButton) view.findViewById(R.id.image_item);
             viewHolder.hobbyName = (TextView) view.findViewById(R.id.hobby_name_item);
-            viewHolder.perScore = (TextView) view.findViewById(R.id.perscore_item);
+            viewHolder.perScore = (TextView) view.findViewById(R.id.totalscore_item);
             view.setTag(viewHolder);
         }
         else{
@@ -62,27 +62,39 @@ public class HobbyAdapter extends ArrayAdapter<Hobby>{
             viewHolder = (ViewHolder)view.getTag();
         }
         viewHolder.hobbyName.setText(temp);
-        if(hobbyStore.getFinish(temp))
-            viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
-        else
-            viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_grey_400_24dp);
+        if(hobbyStore.getFinish(temp)){
+            if(hobbyStore.getPerScore(temp) >= 0)
+                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
+            else
+                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
+        }
+        else{
+            if(hobbyStore.getPerScore(temp) >= 0)
+                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_grey_400_24dp);
+            else
+                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_grey_400_24dp);
+        }
         viewHolder.perScore.setText(Integer.valueOf(hobbyStore.getTotalScore(temp)).toString());
         viewHolder.hobbyImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean finish = !hobbyStore.getFinish(temp);
                     if(finish){
+                        if(hobbyStore.getPerScore(temp) >= 0)
                         viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
+                        else
+                            viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
                         hobbyStore.finish(hobby);
                         viewHolder.perScore.setText(Integer.valueOf(hobbyStore.getTotalScore(temp)).toString());
                     }
                     else{
-                        viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_grey_400_24dp);
+                        if(hobbyStore.getPerScore(temp) >= 0)
+                            viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_grey_400_24dp);
+                        else
+                            viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_grey_400_24dp);
                         hobbyStore.unFinish(hobby);
                         viewHolder.perScore.setText(Integer.valueOf(hobbyStore.getTotalScore(temp)).toString());
                     }
-
-
             }
         });
         return  view;

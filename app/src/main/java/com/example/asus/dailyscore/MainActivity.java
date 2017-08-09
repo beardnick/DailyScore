@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.action_add:
                 addHobbyDialog();
                 break;
-            case R.id.action_remove:
-                Toast.makeText(MainActivity.this,"你删除了一个习惯",Toast.LENGTH_LONG).show();
-                break;
+//            case R.id.action_remove:
+//                Toast.makeText(MainActivity.this,"你删除了一个习惯",Toast.LENGTH_LONG).show();
+//                break;
             default:
                 break;
         }
