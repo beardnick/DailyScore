@@ -2,6 +2,7 @@ package com.example.asus.dailyscore.HobbyHelper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.annotation.LayoutRes;
@@ -65,14 +66,18 @@ public class HobbyAdapter extends ArrayAdapter<Hobby>{
         if(hobbyStore.getFinish(temp)){
             if(hobbyStore.getPerScore(temp) >= 0)
                 viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
-            else
+            else{
                 viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
+                //viewHolder.perScore.setTextColor(Color.rgb(0,0,0));
+            }
         }
         else{
             if(hobbyStore.getPerScore(temp) >= 0)
                 viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_grey_400_24dp);
-            else
+            else{
                 viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_grey_400_24dp);
+               // viewHolder.perScore.setTextColor(Color.rgb(0,0,0));
+            }
         }
         viewHolder.perScore.setText(Integer.valueOf(hobbyStore.getTotalScore(temp)).toString());
         viewHolder.hobbyImage.setOnClickListener(new View.OnClickListener() {

@@ -5,12 +5,14 @@
 
     <TextView
         android:id="@+id/hobby_name_item"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="test"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textSize="15sp"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:layout_marginLeft="30dp"
         android:layout_marginStart="30dp"
         android:layout_alignBottom="@+id/image_item"
@@ -22,12 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="10"
-        android:textSize="20dp"
-        android:textColor="@color/black"
+        android:textSize="20sp"
         android:layout_toLeftOf="@id/image_item"
         android:layout_marginRight="30dp"
         android:gravity="center_vertical"
-
         />
 
     <ImageButton
@@ -37,8 +37,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="47dp"
-        android:layout_marginRight="47dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:background="@color/white_a0"
         android:focusable="false"/> <!--阻止子项获得焦点，让ListView的onItemClickListener得以使用-->
 
