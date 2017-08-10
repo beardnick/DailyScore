@@ -9,7 +9,9 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,7 @@ import static android.content.ContentValues.TAG;
  * Created by asus on 2017/7/29.
  */
 
-public class HobbyActivity extends Activity {
+public class HobbyActivity extends AppCompatActivity {
     private List<Hobby> hobbyList = new ArrayList<>();
     private HobbyStore hobbyStore;
     private SharedPreferences preferences;
@@ -45,8 +47,9 @@ public class HobbyActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.hobbylayout);
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null)actionBar.hide();
         preferences = getSharedPreferences("data", MODE_PRIVATE);
         editor = getSharedPreferences("data",MODE_PRIVATE).edit();
         hobbyStore = new HobbyStore(preferences,editor);
