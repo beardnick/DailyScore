@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
@@ -73,6 +74,15 @@ public class HobbyActivity extends AppCompatActivity {
                     R.layout.hobby_item, hobbyList,hobbyStore);
             ListView listView = (ListView) findViewById(R.id.hobby_list);
             listView.setAdapter(listAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new
+                                Intent("com.example.asus.dailyscore.ITEMCLICK");
+                        intent.putExtra("position",position);
+                        sendBroadcast(intent);
+                }
+            });
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

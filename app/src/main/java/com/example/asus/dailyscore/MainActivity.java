@@ -2,8 +2,11 @@ package com.example.asus.dailyscore;
 
 import android.app.ActivityManager;
 import android.app.LocalActivityManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.app.ActivityManagerCompat;
 import android.support.v4.view.ViewPager;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<View> list;
     private MyPagerAdapter viewPager;
     private LocalActivityManager manager;
+    private ItemClickReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         manager = new LocalActivityManager(this, true);
         manager.dispatchCreate(savedInstanceState);
         initView();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.example.asus.dailyscore.ITEMCLICK");
+        receiver = new ItemClickReceiver();
+        registerReceiver(receiver,intentFilter);
     }
 
     public void initView(){
@@ -82,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
     }
 
     @Override
@@ -142,6 +156,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         builder.show();
+    }
+
+    public class ItemClickReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                Intent intent1 = new Intent(MainActivity.this,HobbyHistory.class);
+                intent1.putExtra("position_from_main",intent.getIntExtra("position",0));
+                startActivity(intent1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

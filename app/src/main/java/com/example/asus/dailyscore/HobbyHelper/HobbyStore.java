@@ -41,11 +41,15 @@ public class HobbyStore {
         return format.parse(getStringBeginDate(hobbyName));
     }
 
-    public boolean getFinish(String hobbyName){
-        return  preferences.getBoolean(hobbyName+getStringTodayDate()+"finish",false);
+    public boolean getFinish(String hobbyName,String date){
+        return  preferences.getBoolean(hobbyName+date+"finish",false);
     }
     public String getStringTodayDate(){
         return format.format(new Date(System.currentTimeMillis()));
+    }
+
+    public boolean getFinish(String hobbyName){
+        return  preferences.getBoolean(hobbyName+getStringTodayDate()+"finish",false);
     }
 
     public Date getDateTodayDate(){
@@ -114,6 +118,7 @@ public class HobbyStore {
     public void removeHobby(String hobbyName) throws ParseException {
         editor.remove(hobbyName+"perScore");
         editor.remove(hobbyName+"totalScore");
+        editor.remove(hobbyName+"position");
         editor.commit();
         int totalHobby = getTotalHobby();
         if(preferences.getInt("totalHobby",0)>0){
@@ -131,7 +136,7 @@ public class HobbyStore {
             else
                 position = getPosition(hobbyName);
             for(int i = position;i < totalHobby;i++){
-                editor.putString("hobby"+Integer.valueOf(i).toString(),preferences.getString("hobby"+Integer.valueOf(i+1).toString(),"???"));
+                editor.putString("hobby"+Integer.valueOf(i).toString(),preferences.getString("hobby"+Integer.valueOf(i).toString(),"???"));
             }
             editor.commit();
             editor.remove("hobby"+Integer.valueOf(totalHobby));

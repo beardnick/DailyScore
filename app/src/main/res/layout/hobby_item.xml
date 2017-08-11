@@ -26,6 +26,7 @@
         android:layout_height="50dp"
         android:text="10"
         android:textSize="20sp"
+        android:textColor="@color/black"
         android:layout_toLeftOf="@id/image_item"
         android:layout_marginRight="30dp"
         android:gravity="center_vertical"
