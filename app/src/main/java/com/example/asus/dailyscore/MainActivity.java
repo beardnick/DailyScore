@@ -13,9 +13,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private MyPagerAdapter viewPager;
     private LocalActivityManager manager;
     private ItemClickReceiver receiver;
+    //private CustomViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +171,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public class CustomViewPager extends ViewPager {
+        private boolean enabled = false;
+
+        public CustomViewPager(Context context) {
+            super(context);
+        }
+
+        public CustomViewPager(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            // 触摸事件不触发
+            if (this.enabled) {
+                return super.onTouchEvent(event);
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(MotionEvent event) {
+            // 不处理触摸拦截事件
+            if (this.enabled) {
+                return super.onInterceptTouchEvent(event);
+            }
+            return false;
+        }
+
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent event) {
+            // 分发事件，这个是必须要的，如果把这个方法覆盖了，那么ViewPager的子View就接收不到事件了
+            if (this.enabled) {
+                return super.dispatchTouchEvent(event);
+            }
+            return super.dispatchTouchEvent(event);
+        }
+
+        public void setPagingEnabled(boolean enabled) {
+            this.enabled = enabled;
         }
     }
 

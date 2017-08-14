@@ -66,7 +66,7 @@ public class HobbyAdapter extends ArrayAdapter<Hobby>{
         viewHolder.perScore.setText(Integer.valueOf(hobbyStore.getTotalScore(temp)).toString());
         if(hobbyStore.getFinish(temp)){
             if(hobbyStore.getPerScore(temp) >= 0) {
-                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
+                viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_700_24dp);
                 //viewHolder.perScore.setTextColor(Color.alpha(getContext().getResources().getColor(R.color.amber_400)));
             }
             else{
@@ -90,7 +90,7 @@ public class HobbyAdapter extends ArrayAdapter<Hobby>{
                 boolean finish = !hobbyStore.getFinish(temp);
                     if(finish){
                         if(hobbyStore.getPerScore(temp) >= 0)
-                        viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_300_24dp);
+                        viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_sunny_amber_700_24dp);
                         else
                             viewHolder.hobbyImage.setImageResource(R.drawable.ic_wb_cloudy_black_24dp);
                         hobbyStore.finish(hobby);

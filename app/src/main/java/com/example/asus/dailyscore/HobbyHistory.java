@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.asus.dailyscore.HobbyHelper.Hobby;
@@ -39,7 +40,9 @@ public class HobbyHistory extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hobby_history);
+        ActionBar actionBar = getSupportActionBar();
         initDate();
+        actionBar.setTitle(hobby.getName());
         initCalendar();
     }
 
@@ -95,7 +98,6 @@ public class HobbyHistory extends AppCompatActivity {
                 view.setBackgroundDrawable(getResources().getDrawable(R.drawable.circle_amber_700));
             else
                 view.setBackgroundDrawable(getResources().getDrawable(R.drawable.circl_black_ae));
-
         }
     }
 }

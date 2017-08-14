@@ -63,6 +63,11 @@ public class HobbyStore {
     public int getTotalScore(String hobbyName){
         return preferences.getInt(hobbyName+"totalScore",0);
     }
+
+    public int getTodayTotalScore(Date date){
+        return preferences.getInt(format.format(date)+"todayTotalScore",0);
+    }
+
     public int getDateScore(String hobbyName,Date date){
         return preferences.getInt(hobbyName+format.format(date),0);
     }
@@ -136,7 +141,7 @@ public class HobbyStore {
             else
                 position = getPosition(hobbyName);
             for(int i = position;i < totalHobby;i++){
-                editor.putString("hobby"+Integer.valueOf(i).toString(),preferences.getString("hobby"+Integer.valueOf(i).toString(),"???"));
+                editor.putString("hobby"+Integer.valueOf(i).toString(),preferences.getString("hobby"+Integer.valueOf(i+1).toString(),"???"));
             }
             editor.commit();
             editor.remove("hobby"+Integer.valueOf(totalHobby));
@@ -168,6 +173,7 @@ public class HobbyStore {
 
     public void finish(Hobby hobby){
         String todayDate = getStringTodayDate();
+        editor.putInt(todayDate+"todayTotalScore",preferences.getInt(todayDate+"todayTotalScore",0)+hobby.getPerScore());
         editor.putInt(hobby.getName()+todayDate+"score",hobby.getPerScore());
         editor.putInt(hobby.getName()+"totalScore",preferences.getInt(hobby.getName()+"totalScore",0)+hobby.getPerScore());
         editor.putBoolean(hobby.getName()+todayDate+"finish",true);
@@ -176,6 +182,7 @@ public class HobbyStore {
 
     public void unFinish(Hobby hobby){
         String todayDate = getStringTodayDate();
+        editor.putInt(todayDate+"todayTotalScore",preferences.getInt(todayDate+"todayTotalScore",0)-hobby.getPerScore());
         editor.putInt(hobby.getName()+"totalScore",preferences.getInt(hobby.getName()+"totalScore",0)-hobby.getPerScore());
         editor.putInt(hobby.getName()+todayDate+"score",0);
         editor.putBoolean(hobby.getName()+todayDate+"finish",false);
